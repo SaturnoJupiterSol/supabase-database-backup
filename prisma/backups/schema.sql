@@ -285,22 +285,6 @@ CREATE TABLE IF NOT EXISTS "public"."conversion_events" (
 ALTER TABLE "public"."conversion_events" OWNER TO "postgres";
 
 
-CREATE TABLE IF NOT EXISTS "public"."conversion_events_backup_20250528" (
-    "id" "uuid",
-    "link_id" "uuid",
-    "user_id" "uuid",
-    "form_id" "uuid",
-    "lead_id" "uuid",
-    "type" "public"."conversion_type",
-    "value" numeric(10,2),
-    "metadata" "jsonb",
-    "created_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."conversion_events_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."features_config" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "user_id" "uuid" NOT NULL,
@@ -312,19 +296,6 @@ CREATE TABLE IF NOT EXISTS "public"."features_config" (
 
 
 ALTER TABLE "public"."features_config" OWNER TO "postgres";
-
-
-CREATE TABLE IF NOT EXISTS "public"."features_config_backup_20250528" (
-    "id" "uuid",
-    "user_id" "uuid",
-    "feature_name" "text",
-    "is_enabled" boolean,
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."features_config_backup_20250528" OWNER TO "postgres";
 
 
 CREATE TABLE IF NOT EXISTS "public"."form_submissions" (
@@ -340,19 +311,6 @@ CREATE TABLE IF NOT EXISTS "public"."form_submissions" (
 ALTER TABLE "public"."form_submissions" OWNER TO "postgres";
 
 
-CREATE TABLE IF NOT EXISTS "public"."form_submissions_backup_20250528" (
-    "id" "uuid",
-    "form_id" "uuid",
-    "form_data" "jsonb",
-    "submitted_at" timestamp with time zone,
-    "ip_address" "inet",
-    "user_agent" "text"
-);
-
-
-ALTER TABLE "public"."form_submissions_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."forms" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "user_id" "uuid" NOT NULL,
@@ -364,7 +322,8 @@ CREATE TABLE IF NOT EXISTS "public"."forms" (
     "steps" "jsonb" DEFAULT '[]'::"jsonb",
     "enable_steps" boolean DEFAULT false,
     "final_step" "jsonb",
-    "color_theme" "jsonb" DEFAULT '{"accent": "#ec4899", "primary": "#3b82f6", "secondary": "#8b5cf6"}'::"jsonb"
+    "color_theme" "jsonb" DEFAULT '{"accent": "#ec4899", "primary": "#3b82f6", "secondary": "#8b5cf6"}'::"jsonb",
+    "display_config" "jsonb"
 );
 
 
@@ -383,23 +342,6 @@ COMMENT ON COLUMN "public"."forms"."color_theme" IS 'Tema de cores personalizado
 
 
 
-CREATE TABLE IF NOT EXISTS "public"."forms_backup_20250528" (
-    "id" "uuid",
-    "user_id" "uuid",
-    "name" "text",
-    "description" "text",
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone,
-    "fields" "jsonb",
-    "steps" "jsonb",
-    "enable_steps" boolean,
-    "final_step" "jsonb"
-);
-
-
-ALTER TABLE "public"."forms_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."geo_routes" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "link_id" "uuid" NOT NULL,
@@ -414,21 +356,6 @@ CREATE TABLE IF NOT EXISTS "public"."geo_routes" (
 
 
 ALTER TABLE "public"."geo_routes" OWNER TO "postgres";
-
-
-CREATE TABLE IF NOT EXISTS "public"."geo_routes_backup_20250528" (
-    "id" "uuid",
-    "link_id" "uuid",
-    "geo_type" "text",
-    "geo_code" "text",
-    "target_url" "text",
-    "is_active" boolean,
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."geo_routes_backup_20250528" OWNER TO "postgres";
 
 
 CREATE TABLE IF NOT EXISTS "public"."google_integration_rules" (
@@ -451,25 +378,6 @@ CREATE TABLE IF NOT EXISTS "public"."google_integration_rules" (
 
 
 ALTER TABLE "public"."google_integration_rules" OWNER TO "postgres";
-
-
-CREATE TABLE IF NOT EXISTS "public"."google_integration_rules_backup_20250528" (
-    "id" "uuid",
-    "user_id" "uuid",
-    "name" "text",
-    "enabled" boolean,
-    "target_type" "text",
-    "target_value" "text",
-    "script_type" "text",
-    "script_content" "text",
-    "trigger_event" "text",
-    "priority" integer,
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."google_integration_rules_backup_20250528" OWNER TO "postgres";
 
 
 CREATE TABLE IF NOT EXISTS "public"."leads" (
@@ -495,28 +403,6 @@ CREATE TABLE IF NOT EXISTS "public"."leads" (
 ALTER TABLE "public"."leads" OWNER TO "postgres";
 
 
-CREATE TABLE IF NOT EXISTS "public"."leads_backup_20250528" (
-    "id" "uuid",
-    "form_id" "uuid",
-    "user_id" "uuid",
-    "name" "text",
-    "email" "text",
-    "phone" "text",
-    "message" "text",
-    "status" "public"."lead_status",
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone,
-    "source" "text",
-    "form_metadata" "jsonb",
-    "attachments" "jsonb",
-    "assigned_to" "text",
-    "notes" "text"
-);
-
-
-ALTER TABLE "public"."leads_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."link_clicks" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "link_id" "uuid",
@@ -536,23 +422,23 @@ CREATE TABLE IF NOT EXISTS "public"."link_clicks" (
 ALTER TABLE "public"."link_clicks" OWNER TO "postgres";
 
 
-CREATE TABLE IF NOT EXISTS "public"."link_clicks_backup_20250528" (
-    "id" "uuid",
-    "link_id" "uuid",
-    "visitor_id" "text",
-    "ip_address" "inet",
-    "user_agent" "text",
-    "referrer" "text",
-    "created_at" timestamp with time zone,
-    "country" "text",
-    "city" "text",
-    "browser" "text",
-    "os" "text",
-    "device_type" "text"
+CREATE TABLE IF NOT EXISTS "public"."notifications" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "user_id" "uuid" NOT NULL,
+    "title" "text" NOT NULL,
+    "message" "text" NOT NULL,
+    "type" "text" NOT NULL,
+    "read" boolean DEFAULT false NOT NULL,
+    "action_url" "text",
+    "metadata" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
+    CONSTRAINT "notifications_type_check" CHECK (("type" = ANY (ARRAY['info'::"text", 'success'::"text", 'warning'::"text", 'error'::"text"])))
 );
 
+ALTER TABLE ONLY "public"."notifications" REPLICA IDENTITY FULL;
 
-ALTER TABLE "public"."link_clicks_backup_20250528" OWNER TO "postgres";
+
+ALTER TABLE "public"."notifications" OWNER TO "postgres";
 
 
 CREATE TABLE IF NOT EXISTS "public"."page_views" (
@@ -581,30 +467,6 @@ ALTER TABLE ONLY "public"."page_views" REPLICA IDENTITY FULL;
 ALTER TABLE "public"."page_views" OWNER TO "postgres";
 
 
-CREATE TABLE IF NOT EXISTS "public"."page_views_backup_20250528" (
-    "id" "uuid",
-    "page_type" "text",
-    "page_id" "uuid",
-    "user_id" "uuid",
-    "visitor_id" "text",
-    "ip_address" "inet",
-    "user_agent" "text",
-    "referrer" "text",
-    "country" "text",
-    "city" "text",
-    "browser" "text",
-    "os" "text",
-    "device_type" "text",
-    "session_id" "text",
-    "duration_seconds" integer,
-    "metadata" "jsonb",
-    "created_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."page_views_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."profiles" (
     "id" "uuid" NOT NULL,
     "email" "text" NOT NULL,
@@ -617,20 +479,6 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
 
 
 ALTER TABLE "public"."profiles" OWNER TO "postgres";
-
-
-CREATE TABLE IF NOT EXISTS "public"."profiles_backup_20250528" (
-    "id" "uuid",
-    "email" "text",
-    "name" "text",
-    "role" "public"."user_role",
-    "is_active" boolean,
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."profiles_backup_20250528" OWNER TO "postgres";
 
 
 CREATE TABLE IF NOT EXISTS "public"."system_settings" (
@@ -668,29 +516,6 @@ COMMENT ON COLUMN "public"."system_settings"."show_logo_in_auth" IS 'Mostrar log
 
 
 
-CREATE TABLE IF NOT EXISTS "public"."system_settings_backup_20250528" (
-    "id" "uuid",
-    "user_id" "uuid",
-    "company_name" "text",
-    "timezone" "text",
-    "email_notifications" boolean,
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone,
-    "google_analytics_id" "text",
-    "google_analytics_enabled" boolean,
-    "google_ads_id" "text",
-    "google_tag_manager_id" "text",
-    "google_tag_manager_enabled" boolean,
-    "google_analytics_pages" "jsonb",
-    "company_logo_url" "text",
-    "show_logo_in_forms" boolean,
-    "show_logo_in_auth" boolean
-);
-
-
-ALTER TABLE "public"."system_settings_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."tracking_links" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "user_id" "uuid" NOT NULL,
@@ -722,27 +547,6 @@ COMMENT ON COLUMN "public"."tracking_links"."conversion_trigger" IS 'Tipo de gat
 
 
 
-CREATE TABLE IF NOT EXISTS "public"."tracking_links_backup_20250528" (
-    "id" "uuid",
-    "user_id" "uuid",
-    "name" "text",
-    "url" "text",
-    "campaign_source" "text",
-    "campaign_medium" "text",
-    "campaign_name" "text",
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone,
-    "enable_geo_redirect" boolean,
-    "enable_link_cloaking" boolean,
-    "cloaking_slug" "text",
-    "tracking_mode" "text",
-    "conversion_trigger" "text"
-);
-
-
-ALTER TABLE "public"."tracking_links_backup_20250528" OWNER TO "postgres";
-
-
 CREATE TABLE IF NOT EXISTS "public"."visitor_sessions" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "link_id" "uuid",
@@ -758,23 +562,6 @@ CREATE TABLE IF NOT EXISTS "public"."visitor_sessions" (
 
 
 ALTER TABLE "public"."visitor_sessions" OWNER TO "postgres";
-
-
-CREATE TABLE IF NOT EXISTS "public"."visitor_sessions_backup_20250528" (
-    "id" "uuid",
-    "link_id" "uuid",
-    "ip_address" "inet",
-    "device_id" "text",
-    "user_agent" "text",
-    "total_visits" integer,
-    "first_visit_at" timestamp with time zone,
-    "last_visit_at" timestamp with time zone,
-    "created_at" timestamp with time zone,
-    "updated_at" timestamp with time zone
-);
-
-
-ALTER TABLE "public"."visitor_sessions_backup_20250528" OWNER TO "postgres";
 
 
 ALTER TABLE ONLY "public"."conversion_events"
@@ -824,6 +611,11 @@ ALTER TABLE ONLY "public"."leads"
 
 ALTER TABLE ONLY "public"."link_clicks"
     ADD CONSTRAINT "link_clicks_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."notifications"
+    ADD CONSTRAINT "notifications_pkey" PRIMARY KEY ("id");
 
 
 
@@ -935,6 +727,18 @@ CREATE INDEX "idx_link_clicks_link_id" ON "public"."link_clicks" USING "btree" (
 
 
 CREATE INDEX "idx_link_clicks_visitor_id" ON "public"."link_clicks" USING "btree" ("visitor_id");
+
+
+
+CREATE INDEX "idx_notifications_created_at" ON "public"."notifications" USING "btree" ("created_at" DESC);
+
+
+
+CREATE INDEX "idx_notifications_read" ON "public"."notifications" USING "btree" ("read");
+
+
+
+CREATE INDEX "idx_notifications_user_id" ON "public"."notifications" USING "btree" ("user_id");
 
 
 
@@ -1073,6 +877,11 @@ ALTER TABLE ONLY "public"."link_clicks"
 
 
 
+ALTER TABLE ONLY "public"."notifications"
+    ADD CONSTRAINT "notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
+
+
+
 ALTER TABLE ONLY "public"."profiles"
     ADD CONSTRAINT "profiles_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
 
@@ -1102,6 +911,10 @@ CREATE POLICY "Admins can view all profiles" ON "public"."profiles" FOR SELECT U
 
 
 CREATE POLICY "Allow anonymous users to create leads from public forms" ON "public"."leads" FOR INSERT WITH CHECK (true);
+
+
+
+CREATE POLICY "Allow inserting notifications" ON "public"."notifications" FOR INSERT WITH CHECK (true);
 
 
 
@@ -1263,6 +1076,10 @@ CREATE POLICY "Users can update their own leads" ON "public"."leads" FOR UPDATE 
 
 
 
+CREATE POLICY "Users can update their own notifications" ON "public"."notifications" FOR UPDATE USING (("auth"."uid"() = "user_id"));
+
+
+
 CREATE POLICY "Users can update their own profile" ON "public"."profiles" FOR UPDATE USING (("auth"."uid"() = "id"));
 
 
@@ -1315,6 +1132,10 @@ CREATE POLICY "Users can view their own leads" ON "public"."leads" FOR SELECT US
 
 
 
+CREATE POLICY "Users can view their own notifications" ON "public"."notifications" FOR SELECT USING (("auth"."uid"() = "user_id"));
+
+
+
 CREATE POLICY "Users can view their own page views" ON "public"."page_views" FOR SELECT USING ((("auth"."uid"() = "user_id") OR ("user_id" IS NULL)));
 
 
@@ -1355,6 +1176,9 @@ ALTER TABLE "public"."leads" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."link_clicks" ENABLE ROW LEVEL SECURITY;
 
 
+ALTER TABLE "public"."notifications" ENABLE ROW LEVEL SECURITY;
+
+
 ALTER TABLE "public"."page_views" ENABLE ROW LEVEL SECURITY;
 
 
@@ -1373,6 +1197,10 @@ ALTER TABLE "public"."visitor_sessions" ENABLE ROW LEVEL SECURITY;
 
 
 ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
+
+
+ALTER PUBLICATION "supabase_realtime" ADD TABLE ONLY "public"."notifications";
+
 
 
 ALTER PUBLICATION "supabase_realtime" ADD TABLE ONLY "public"."page_views";
@@ -1599,21 +1427,9 @@ GRANT ALL ON TABLE "public"."conversion_events" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."conversion_events_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."conversion_events_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."conversion_events_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."features_config" TO "anon";
 GRANT ALL ON TABLE "public"."features_config" TO "authenticated";
 GRANT ALL ON TABLE "public"."features_config" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."features_config_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."features_config_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."features_config_backup_20250528" TO "service_role";
 
 
 
@@ -1623,21 +1439,9 @@ GRANT ALL ON TABLE "public"."form_submissions" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."form_submissions_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."form_submissions_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."form_submissions_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."forms" TO "anon";
 GRANT ALL ON TABLE "public"."forms" TO "authenticated";
 GRANT ALL ON TABLE "public"."forms" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."forms_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."forms_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."forms_backup_20250528" TO "service_role";
 
 
 
@@ -1647,21 +1451,9 @@ GRANT ALL ON TABLE "public"."geo_routes" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."geo_routes_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."geo_routes_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."geo_routes_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."google_integration_rules" TO "anon";
 GRANT ALL ON TABLE "public"."google_integration_rules" TO "authenticated";
 GRANT ALL ON TABLE "public"."google_integration_rules" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."google_integration_rules_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."google_integration_rules_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."google_integration_rules_backup_20250528" TO "service_role";
 
 
 
@@ -1671,21 +1463,15 @@ GRANT ALL ON TABLE "public"."leads" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."leads_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."leads_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."leads_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."link_clicks" TO "anon";
 GRANT ALL ON TABLE "public"."link_clicks" TO "authenticated";
 GRANT ALL ON TABLE "public"."link_clicks" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."link_clicks_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."link_clicks_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."link_clicks_backup_20250528" TO "service_role";
+GRANT ALL ON TABLE "public"."notifications" TO "anon";
+GRANT ALL ON TABLE "public"."notifications" TO "authenticated";
+GRANT ALL ON TABLE "public"."notifications" TO "service_role";
 
 
 
@@ -1695,21 +1481,9 @@ GRANT ALL ON TABLE "public"."page_views" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."page_views_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."page_views_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."page_views_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."profiles" TO "anon";
 GRANT ALL ON TABLE "public"."profiles" TO "authenticated";
 GRANT ALL ON TABLE "public"."profiles" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."profiles_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."profiles_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."profiles_backup_20250528" TO "service_role";
 
 
 
@@ -1719,33 +1493,15 @@ GRANT ALL ON TABLE "public"."system_settings" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."system_settings_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."system_settings_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."system_settings_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."tracking_links" TO "anon";
 GRANT ALL ON TABLE "public"."tracking_links" TO "authenticated";
 GRANT ALL ON TABLE "public"."tracking_links" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."tracking_links_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."tracking_links_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."tracking_links_backup_20250528" TO "service_role";
-
-
-
 GRANT ALL ON TABLE "public"."visitor_sessions" TO "anon";
 GRANT ALL ON TABLE "public"."visitor_sessions" TO "authenticated";
 GRANT ALL ON TABLE "public"."visitor_sessions" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."visitor_sessions_backup_20250528" TO "anon";
-GRANT ALL ON TABLE "public"."visitor_sessions_backup_20250528" TO "authenticated";
-GRANT ALL ON TABLE "public"."visitor_sessions_backup_20250528" TO "service_role";
 
 
 
