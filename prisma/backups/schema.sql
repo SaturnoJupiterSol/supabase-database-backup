@@ -396,7 +396,7 @@ CREATE TABLE IF NOT EXISTS "public"."leads" (
     "attachments" "jsonb" DEFAULT '[]'::"jsonb",
     "assigned_to" "text",
     "notes" "text",
-    CONSTRAINT "leads_source_check" CHECK (("source" = ANY (ARRAY['form'::"text", 'manual'::"text", 'import'::"text"])))
+    CONSTRAINT "leads_source_check" CHECK (("source" = ANY (ARRAY['form'::"text", 'manual'::"text", 'import'::"text", 'referral'::"text", 'social'::"text", 'advertising'::"text", 'website'::"text", 'landing_page'::"text", 'email'::"text", 'phone'::"text", 'chat'::"text"])))
 );
 
 
