@@ -1171,9 +1171,6 @@ ALTER TABLE "public"."geo_routes" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."google_integration_rules" ENABLE ROW LEVEL SECURITY;
 
 
-ALTER TABLE "public"."leads" ENABLE ROW LEVEL SECURITY;
-
-
 ALTER TABLE "public"."link_clicks" ENABLE ROW LEVEL SECURITY;
 
 
