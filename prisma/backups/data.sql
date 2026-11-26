@@ -4,7 +4,7 @@ SET session_replication_role = replica;
 -- PostgreSQL database dump
 --
 
--- \restrict srRs59f1DynrSZuBr6DsY8MAaGDLRODURYBsaEXJ5xtTIrSi8DME0BwQ0fMrc9g
+-- \restrict wRjiLrYfw5xTZVsSt9IXfdxrg7JQfvxZcscbBWe1EjWoryCcwumQojezp4UKV3A
 
 -- Dumped from database version 15.8
 -- Dumped by pg_dump version 17.12
@@ -1210,7 +1210,7 @@ COPY "auth"."audit_log_entries" ("instance_id", "id", "payload", "created_at", "
 -- Data for Name: custom_oauth_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
 --
 
-COPY "auth"."custom_oauth_providers" ("id", "provider_type", "identifier", "name", "client_id", "client_secret", "acceptable_client_ids", "scopes", "pkce_enabled", "attribute_mapping", "authorization_params", "enabled", "email_optional", "issuer", "discovery_url", "skip_nonce_check", "cached_discovery", "discovery_cached_at", "authorization_url", "token_url", "userinfo_url", "jwks_uri", "created_at", "updated_at", "custom_claims_allowlist") FROM stdin;
+COPY "auth"."custom_oauth_providers" ("id", "provider_type", "identifier", "name", "client_id", "client_secret", "acceptable_client_ids", "scopes", "pkce_enabled", "attribute_mapping", "authorization_params", "enabled", "email_optional", "issuer", "discovery_url", "skip_nonce_check", "cached_discovery", "discovery_cached_at", "authorization_url", "token_url", "userinfo_url", "jwks_uri", "created_at", "updated_at", "custom_claims_allowlist", "client_auth_method", "client_assertion_audience") FROM stdin;
 \.
 
 
@@ -4313,6 +4313,6 @@ SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 747, true);
 -- PostgreSQL database dump complete
 --
 
--- \unrestrict srRs59f1DynrSZuBr6DsY8MAaGDLRODURYBsaEXJ5xtTIrSi8DME0BwQ0fMrc9g
+-- \unrestrict wRjiLrYfw5xTZVsSt9IXfdxrg7JQfvxZcscbBWe1EjWoryCcwumQojezp4UKV3A
 
 RESET ALL;
